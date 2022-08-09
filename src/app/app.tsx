@@ -1,20 +1,13 @@
-import React from 'react';
 import { RouterProvider } from 'atomic-router-react'
-import { createEffect, createEvent, sample } from 'effector';
+import { createEvent, sample } from 'effector';
 import { createBrowserHistory } from "history";
 import { createHistoryRouter } from "atomic-router";
 import { useUnit } from "effector-react";
 import { createGlobalStyle } from "styled-components";
 
-import {
-    $session,
-    $sessionIsLoaded,
-    signInFx,
-    readyToLoadSession,
-    getSessionFx,
-    $sessionLoading
-} from 'entities/session';
+import { readyToLoadSession, $sessionLoading } from 'entities/session';
 import { Layout } from "widgets/layout";
+import { AppLoader } from "widgets/app-loader";
 import { Pages, routesMap } from "pages";
 import { $isAuthorized, tokenErased, tokenReceived } from "shared/token";
 import { routes } from "shared/routes";
@@ -30,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-//App Init
+//App start
 const appIsReadyToLoad = createEvent()
 
 const history = createBrowserHistory()
@@ -54,11 +47,7 @@ sample({
 sample({
     clock: tokenReceived,
     source: $isAuthorized,
-    //filter: (s) => Boolean(s),
-    fn: (s) => {
-        console.log(s)
-        return ({})
-    },
+    filter: Boolean,
     target: routes.home.open
 })
 
@@ -76,7 +65,7 @@ const App = () => {
     const loading = useUnit($sessionLoading)
 
     if (loading)
-        return <div>Loading...</div>
+        return <AppLoader/>
 
     return (
         <RouterProvider router={router}>
@@ -86,6 +75,6 @@ const App = () => {
             </Layout>
         </RouterProvider>
     )
-};
+}
 
 export default App;

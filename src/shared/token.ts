@@ -1,5 +1,4 @@
 import { createEvent, createStore, sample } from "effector"
-import { persist } from "effector-storage/local"
 
 export const tokenReceived = createEvent<any>()
 export const tokenErased = createEvent()
@@ -15,7 +14,6 @@ $token
     .on(tokenReceived, (prev, token) => token)
     .reset(tokenErased)
 
-
 sample({
     clock: tokenReceived,
     filter: Boolean,
@@ -25,4 +23,10 @@ sample({
 sample({
     clock: tokenErased,
     fn: () => localStorage.removeItem(ACCESS_TOKEN)
+})
+
+window.addEventListener('storage', (event) => {
+    if (event.key === ACCESS_TOKEN)
+        if (event.newValue === null)
+            tokenErased()
 })

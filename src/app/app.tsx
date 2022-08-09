@@ -1,5 +1,5 @@
 import { RouterProvider } from 'atomic-router-react'
-import { createEvent, sample } from 'effector';
+import { createEvent, createStore, sample } from 'effector';
 import { createBrowserHistory } from "history";
 import { createHistoryRouter } from "atomic-router";
 import { useUnit } from "effector-react";
@@ -12,7 +12,6 @@ import { AppLoader } from "widgets/app-loader";
 import { Pages, routesMap } from "pages";
 import { $isAuthorized, tokenErased, tokenReceived } from "shared/token";
 import { routes } from "shared/routes";
-
 
 const GlobalStyle = createGlobalStyle`
   ${reset}

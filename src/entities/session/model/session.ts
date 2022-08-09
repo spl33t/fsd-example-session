@@ -28,7 +28,7 @@ sample({
 })
 
 //если сесия загрузилась записать токен в локалстораге
-export const $sessionIsLoaded = sample({
+sample({
     clock: getSessionFx.doneData.map(payload => payload?.token),
     target: tokenReceived
 })

@@ -1,3 +1,7 @@
-import { routes } from "shared/routes";
+import { createRoute } from "atomic-router";
 
-const currentRoute = routes.home
+export const currentRoute = createRoute()
+
+currentRoute.$isOpened.watch(state => {
+    console.log(state)
+})

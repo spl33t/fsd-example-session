@@ -1,13 +1,12 @@
 import { Link } from "atomic-router-react";
 
-import { routes } from "shared/routes";
+import { AboutPage } from "../about";
 
-
-export const HomePage = () => {
+export const Page = () => {
     return (
         <div>
             <h1>Home</h1>
-            <Link to={routes.about}>Абаут</Link>
+            <Link to={AboutPage.route}>Абаут</Link>
         </div>
     )
 };

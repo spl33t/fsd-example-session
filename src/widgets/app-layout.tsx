@@ -4,27 +4,29 @@ import styled from "styled-components"
 import { useUnit } from "effector-react";
 
 import { SessionPanel } from "entities/session";
-import { routes } from "shared/routes";
 import { $isAuthorized } from "shared/token";
+
+import { HomePage } from "pages/home";
+import { AboutPage } from "pages/about";
 
 
 type LayoutProps = {
     children: ReactNode
 }
 
-export const Layout = (props: LayoutProps) => {
+export const AppLayout = (props: LayoutProps) => {
     const isAuth = useUnit($isAuthorized)
 
     return (
         <LayoutContainer>
             {isAuth &&
             <Header>
-                <LogoLink to={routes.home}>
+                <LogoLink to={HomePage.route}>
                     AppTest
                 </LogoLink>
                 <NavigationMenu>
-                    <Link to={routes.home}>Home</Link>
-                    <Link to={routes.about}>About</Link>
+                    <Link to={HomePage.route}>Home</Link>
+                    <Link to={AboutPage.route}>About</Link>
                 </NavigationMenu>
                 <SessionPanel/>
             </Header>

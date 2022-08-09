@@ -4,7 +4,7 @@ import { FormEvent } from "react";
 import { $password, $login, changeInputLogin, changeInputPassword, submitForm } from "./model"
 import { loginPending } from "entities/session";
 
-export const LoginPage = () => {
+export const Page = () => {
     const login = useUnit($login)
     const password = useUnit($password)
     const pending = useUnit(loginPending)

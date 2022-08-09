@@ -1,5 +1,5 @@
 import { RouterProvider } from 'atomic-router-react'
-import { createEvent, createStore, sample } from 'effector';
+import { createEvent, sample } from 'effector';
 import { createBrowserHistory } from "history";
 import { createHistoryRouter } from "atomic-router";
 import { useUnit } from "effector-react";
@@ -7,11 +7,13 @@ import { createGlobalStyle } from "styled-components";
 import { reset } from 'styled-reset';
 
 import { readyToLoadSession, $sessionLoading } from 'entities/session';
-import { Layout } from "widgets/layout";
+import { AppLayout } from "widgets/app-layout";
 import { AppLoader } from "widgets/app-loader";
 import { Pages, routesMap } from "pages";
 import { $isAuthorized, tokenErased, tokenReceived } from "shared/token";
-import { routes } from "shared/routes";
+
+import {LoginPage} from "pages/login";
+import {HomePage} from "pages/home";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -54,31 +56,31 @@ sample({
     clock: tokenReceived,
     source: $isAuthorized,
     filter: Boolean,
-    target: routes.home.open
+    target: HomePage.route.open
 })
 
-//Редирект на стриницу логина если не авторизован
+//Редирект на стриницу логина при открытии любой страницы приложения если пользователь не авторизован
 sample({
-    clock: [router.$path, tokenErased],
+    clock: [router.$path, $isAuthorized, tokenErased],
     source: $isAuthorized,
     filter: (s) => !Boolean(s),
-    target: routes.login.open
+    target: LoginPage.route.open
 })
 
 appIsReadyToLoad()
 
 const App = () => {
-    const loading = useUnit($sessionLoading)
+    const sessionLoading = useUnit($sessionLoading)
 
-    if (loading)
+    if (sessionLoading)
         return <AppLoader/>
 
     return (
         <RouterProvider router={router}>
             <GlobalStyle/>
-            <Layout>
+            <AppLayout>
                 <Pages/>
-            </Layout>
+            </AppLayout>
         </RouterProvider>
     )
 }

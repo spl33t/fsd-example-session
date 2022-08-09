@@ -1,3 +1,3 @@
-import { routes } from "shared/routes";
+import { createRoute } from "atomic-router";
 
-const currentRoute = routes.about
+export const currentRoute = createRoute()

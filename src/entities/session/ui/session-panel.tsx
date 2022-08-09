@@ -3,11 +3,12 @@ import styled from "styled-components";
 import { Link } from "atomic-router-react";
 import { useUnit } from "effector-react";
 
-import { routes } from "shared/routes";
 import { $isAuthorized } from "shared/token";
 
 import { $login } from "../model/session";
 import { clickLogoutButton } from "../model/logout";
+
+import {LoginPage} from "pages/login";
 
 
 export const SessionPanel = () => {
@@ -25,7 +26,7 @@ export const SessionPanel = () => {
                 </>
                 : <>
                     <Button>
-                        <Link to={routes.login}>Login</Link>
+                        <Link to={LoginPage.route}>Login</Link>
                     </Button>
                 </>
             }

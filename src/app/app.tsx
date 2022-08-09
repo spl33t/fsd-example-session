@@ -4,6 +4,7 @@ import { createBrowserHistory } from "history";
 import { createHistoryRouter } from "atomic-router";
 import { useUnit } from "effector-react";
 import { createGlobalStyle } from "styled-components";
+import { reset } from 'styled-reset';
 
 import { readyToLoadSession, $sessionLoading } from 'entities/session';
 import { Layout } from "widgets/layout";
@@ -12,14 +13,20 @@ import { Pages, routesMap } from "pages";
 import { $isAuthorized, tokenErased, tokenReceived } from "shared/token";
 import { routes } from "shared/routes";
 
+
 const GlobalStyle = createGlobalStyle`
+  ${reset}
   body {
     font-family: Arial;
-    margin: 0;
   }
   a {
     text-decoration: none;
     color: #000;
+  }
+  h1{
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 20px;
   }
 `
 

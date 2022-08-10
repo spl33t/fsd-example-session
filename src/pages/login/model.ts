@@ -1,9 +1,6 @@
 import { combine, createEvent, createStore, sample } from "effector";
 
-import { routes } from "shared/routes";
 import { signInFx } from "entities/session";
-
-const currentRoute = routes.login
 
 export const changeInputLogin = createEvent<string>()
 export const changeInputPassword = createEvent<string>()

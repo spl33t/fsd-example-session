@@ -1,3 +1,18 @@
-import { createEvent } from "effector";
+import { createEvent, sample } from "effector";
+import { not } from "patronum";
 
-export const clickLogoutButton = createEvent()
+import { $isAuthorized, tokenErased } from "shared/token";
+import { routes } from "shared/routes/routes";
+
+export const clickLogoutButton = createEvent<any>()
+
+sample({
+    clock: clickLogoutButton,
+    target: tokenErased
+})
+
+sample({
+    clock: $isAuthorized,
+    filter: not($isAuthorized),
+    target: routes.login.open
+})

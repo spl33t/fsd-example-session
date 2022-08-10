@@ -1,6 +1,6 @@
 import { Route } from "atomic-router-react";
 
-import { routes } from "shared/routes";
+import { routes } from "shared/routes/routes";
 
 import { HomePage } from "./home"
 import { AboutPage } from "./about"

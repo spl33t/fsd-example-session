@@ -11,8 +11,8 @@ export const $token = createStore(localStorage.getItem(ACCESS_TOKEN) || null)
 export const $isAuthorized = $token.map(Boolean)
 
 $token
-    .on(tokenReceived, (prev, token) => token)
-    .reset(tokenErased)
+    .on(tokenReceived, (_, token) => token)
+    .on(tokenErased, () => null)
 
 sample({
     clock: tokenReceived,

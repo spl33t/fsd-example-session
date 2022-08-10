@@ -1,8 +1,10 @@
-import { RouterProvider } from 'atomic-router-react'
-import { createEvent, createStore, sample } from 'effector';
-import { createBrowserHistory } from "history";
-import { createHistoryRouter } from "atomic-router";
+import { createEvent, sample } from 'effector';
 import { useUnit } from "effector-react";
+
+import { createHistoryRouter } from "atomic-router";
+import { RouterProvider } from 'atomic-router-react'
+import { createBrowserHistory } from "history";
+
 import { createGlobalStyle } from "styled-components";
 import { reset } from 'styled-reset';
 
@@ -10,8 +12,6 @@ import { readyToLoadSession, $sessionLoading } from 'entities/session';
 import { Layout } from "widgets/layout";
 import { AppLoader } from "widgets/app-loader";
 import { Pages, routesMap } from "pages";
-import { $isAuthorized, tokenErased, tokenReceived } from "shared/token";
-import { routes } from "shared/routes";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -49,28 +49,12 @@ sample({
     target: readyToLoadSession
 })
 
-//Редирект после логина
-sample({
-    clock: tokenReceived,
-    source: $isAuthorized,
-    filter: Boolean,
-    target: routes.home.open
-})
-
-//Редирект на стриницу логина если не авторизован
-sample({
-    clock: [router.$path, tokenErased],
-    source: $isAuthorized,
-    filter: (s) => !Boolean(s),
-    target: routes.login.open
-})
-
 appIsReadyToLoad()
 
 const App = () => {
-    const loading = useUnit($sessionLoading)
+    const sessionLoading = useUnit($sessionLoading)
 
-    if (loading)
+    if (sessionLoading)
         return <AppLoader/>
 
     return (

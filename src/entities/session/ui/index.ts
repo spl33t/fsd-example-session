@@ -1,1 +1,1 @@
-export {SessionPanel} from "./session-panel"
+export { SessionPanel } from "./session-panel"

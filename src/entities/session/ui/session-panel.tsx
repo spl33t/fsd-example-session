@@ -3,12 +3,11 @@ import styled from "styled-components";
 import { Link } from "atomic-router-react";
 import { useUnit } from "effector-react";
 
-import { routes } from "shared/routes";
+import { routes } from "shared/routes/routes";
 import { $isAuthorized } from "shared/token";
 
 import { $login } from "../model/session";
 import { clickLogoutButton } from "../model/logout";
-
 
 export const SessionPanel = () => {
     const isAuth = useUnit($isAuthorized)
@@ -48,7 +47,7 @@ padding: 10px;
 border-radius: 8px;
 color: #fff;
 cursor: pointer;
-a{
-color: #fff;
-}
+    a {
+    color: #fff;
+    }
 `

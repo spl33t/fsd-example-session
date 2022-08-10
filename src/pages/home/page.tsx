@@ -1,7 +1,6 @@
 import { Link } from "atomic-router-react";
 
-import { routes } from "shared/routes";
-
+import { routes } from "shared/routes/routes";
 
 export const HomePage = () => {
     return (

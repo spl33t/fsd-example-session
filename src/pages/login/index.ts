@@ -1,2 +1,1 @@
 export { LoginPage } from "./page";
-

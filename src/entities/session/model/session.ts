@@ -1,10 +1,9 @@
 import { createEffect, createEvent, createStore, sample } from "effector";
 
 import { refreshSession, User } from "shared/api";
-import { $token, tokenReceived, tokenErased } from "shared/token";
+import { $token, tokenErased, tokenReceived } from "shared/token";
 
 import { signInFx } from "./signin";
-import { clickLogoutButton } from "./logout";
 
 export const readyToLoadSession = createEvent()
 export const getSessionFx = createEffect(refreshSession)
@@ -13,7 +12,7 @@ export const $session = createStore<User | null>(null)
 $session
     .on(getSessionFx.doneData, (state, payload) => payload)
     .on(signInFx.doneData, (state, payload) => payload)
-    .on(clickLogoutButton, (state, payload) => null)
+    .reset(tokenErased)
 
 export const $login = $session.map(state => state?.login)
 
@@ -27,14 +26,9 @@ sample({
     target: getSessionFx
 })
 
-//если сесия загрузилась записать токен в локалстораге
+//если в сторе сессии есть токен записать в локалстораге
 sample({
-    clock: getSessionFx.doneData.map(payload => payload?.token),
+    clock: $session.map(state => state?.token),
+    filter: Boolean,
     target: tokenReceived
-})
-
-//Удалить токен по если нажали кнопку выйти
-sample({
-    clock: clickLogoutButton,
-    target: tokenErased
 })

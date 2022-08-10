@@ -4,7 +4,7 @@ import styled from "styled-components"
 import { useUnit } from "effector-react";
 
 import { SessionPanel } from "entities/session";
-import { routes } from "shared/routes";
+import { routes } from "shared/routes/routes";
 import { $isAuthorized } from "shared/token";
 
 
